@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Purchase.System.Common.ProductTypeMst>
+@{
+    ViewBag.Title = "ProductTypeList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ProductTypeList</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="text-decoration-color:blue">
+                Product Type Description
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <hr />
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "ProductType", new { id = item.pk_propertyId, }, new { @class = "btn btn-info fas fa-edit" })
+                    @Html.ActionLink("Delete", "Delete", "ProductType", new { id = item.pk_propertyId, }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
