@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\productTypeController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="DTO\ProductListDTO.cs" />
     <Compile Include="DTO\ProductMasterDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -246,6 +247,8 @@
     <Content Include="Views\product\ProductList.cshtml" />
     <Content Include="Views\ProductType\Create.cshtml" />
     <Content Include="Views\ProductType\ProductTypeList.cshtml" />
+    <Content Include="Views\Role\RoleList.cshtml" />
+    <Content Include="Views\Role\CreateRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

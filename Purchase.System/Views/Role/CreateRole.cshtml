@@ -1,0 +1,22 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "CreateRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+<h2>Create Role</h2>
+<hr />
+@using (Html.BeginForm("CreateRole", "Role"))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Name)
+    </div>
+    <div>
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+<br /><br />
+@Html.ActionLink("Back To List", "RoleList", "Role")
