@@ -16,5 +16,7 @@ namespace Purchase.System.Common
         public double OriginalPrice { get; set; }
         public double SellingUpToPrice { get; set; }
         public double Quantity { get; set; }
+
+        public string UserName { get; set; }
     }
 }

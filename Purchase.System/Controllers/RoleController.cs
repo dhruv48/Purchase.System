@@ -1,4 +1,5 @@
-﻿using Purchase.System.Models;
+﻿using Purchase.System.Common;
+using Purchase.System.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Purchase.System.Controllers
 {
+    [Authorize(Roles =CustomRoles.Admin)]
     public class RoleController : Controller
     {
 
@@ -15,6 +17,8 @@ namespace Purchase.System.Controllers
         {
                 
         }
+
+   
         // GET: Role
         public ActionResult RoleList()
         {
@@ -30,6 +34,7 @@ namespace Purchase.System.Controllers
             return View(role);
         }
 
+       
         //Create Role
         [HttpPost]
         public ActionResult CreateRole(Microsoft.AspNet.Identity.EntityFramework.IdentityRole identityRole)

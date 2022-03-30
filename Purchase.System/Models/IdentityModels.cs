@@ -33,5 +33,7 @@ namespace Purchase.System.Models
 
         public DbSet<ProductTypeMst> ProductTypes { get; set; }
         public DbSet<ProductMst> ProductMainMasters { get; set; }
+
+        public DbSet<ModuleMaster> ModuleMaster { get; set; }
     }
 }

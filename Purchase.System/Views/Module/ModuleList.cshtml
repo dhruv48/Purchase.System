@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Purchase.System.Common.ModuleMaster>
+
+@{
+    ViewBag.Title = "ModuleList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ModuleList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateModule","Module")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ControllerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImgUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModuleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModuleDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ControllerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImgUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pk_moduleId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pk_moduleId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pk_moduleId })
+        </td>
+    </tr>
+}
+
+</table>

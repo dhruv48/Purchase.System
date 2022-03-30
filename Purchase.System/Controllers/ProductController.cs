@@ -1,4 +1,5 @@
-﻿using Purchase.System.DTO;
+﻿using Purchase.System.Common;
+using Purchase.System.DTO;
 using Purchase.System.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Purchase.System.Controllers
 {
+    //[Authorize(Roles = CustomRoles.Admin, CustomRoles.Adm_Cs, CustomRoles.Adm_Gs)]
     public class ProductController : Controller
     {
         ApplicationDbContext applicationDbContext;
@@ -37,6 +39,7 @@ namespace Purchase.System.Controllers
         {
             if (productMasterDTO.ProductMst.pk_ProductId == 0)
             {
+                productMasterDTO.ProductMst.UserName = User.Identity.Name;
                 applicationDbContext.ProductMainMasters.Add(productMasterDTO.ProductMst);
                 applicationDbContext.SaveChanges();
 
@@ -45,6 +48,7 @@ namespace Purchase.System.Controllers
             {
 
                 var dataInDb = applicationDbContext.ProductMainMasters.FirstOrDefault(x => x.pk_ProductId == productMasterDTO.ProductMst.pk_ProductId);
+
                 dataInDb.fk_producttypeid = productMasterDTO.ProductMst.fk_producttypeid;
                 dataInDb.ProductName = productMasterDTO.ProductMst.ProductName;
                 dataInDb.SellingUpToPrice = productMasterDTO.ProductMst.SellingUpToPrice;
@@ -59,20 +63,42 @@ namespace Purchase.System.Controllers
 
         public ActionResult ProductList()
         {
+            IEnumerable<ProductListDTO> productLists;
+            if (User.IsInRole(CustomRoles.Admin))
+            {
 
-            var productList = from x in applicationDbContext.ProductMainMasters
-                              join y in applicationDbContext.ProductTypes on x.fk_producttypeid equals y.pk_propertyId
-                              select new ProductListDTO
-                              {
-                                  pk_ProductId = x.pk_ProductId,
-                                  ProductName = x.ProductName,
-                                  SellingUpToPrice = x.SellingUpToPrice,
-                                  Quantity = x.Quantity,
-                                  OriginalPrice = x.OriginalPrice,
-                                  ProductType = y.Description
+                productLists = from x in applicationDbContext.ProductMainMasters
+                               join y in applicationDbContext.ProductTypes on x.fk_producttypeid equals y.pk_propertyId
+                               select new ProductListDTO
+                               {
+                                   pk_ProductId = x.pk_ProductId,
+                                   ProductName = x.ProductName,
+                                   SellingUpToPrice = x.SellingUpToPrice,
+                                   Quantity = x.Quantity,
+                                   OriginalPrice = x.OriginalPrice,
+                                   ProductType = y.Description
 
-                              };
-            return View(productList);
+                               };
+            }
+            else
+            {
+                productLists = from x in applicationDbContext.ProductMainMasters
+                               join y in applicationDbContext.ProductTypes on x.fk_producttypeid equals y.pk_propertyId
+                               where x.UserName == User.Identity.Name
+                               select new ProductListDTO
+                               {
+                                   pk_ProductId = x.pk_ProductId,
+                                   ProductName = x.ProductName,
+                                   SellingUpToPrice = x.SellingUpToPrice,
+                                   Quantity = x.Quantity,
+                                   OriginalPrice = x.OriginalPrice,
+                                   ProductType = y.Description
+
+                               };
+
+            }
+
+            return View(productLists);
         }
 
         public ActionResult Edit(int id)

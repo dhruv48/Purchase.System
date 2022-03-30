@@ -20,11 +20,29 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        @Html.Partial("_Admin")
+                    }
+                    else if (User.IsInRole("Cloth"))
+                    {
+                        @Html.Partial("_cloth")
+                    }
+                    else
+                    {
+                        @Html.Partial("_General")
+
+                    }
+                }
+
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
